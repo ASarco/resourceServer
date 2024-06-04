@@ -1,4 +1,4 @@
-package com.imgarena.resourceserver;
+package com.imgarena.resourceserver.security;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -6,7 +6,9 @@ import java.io.IOException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.stereotype.Component;
 
+@Component
 public class SimpleAccessDeniedHandler  implements AuthenticationEntryPoint, InitializingBean {
 
   @Override

@@ -1,5 +1,8 @@
 package com.imgarena.resourceserver.config;
 
+import com.imgarena.resourceserver.security.RoleService;
+import com.imgarena.resourceserver.security.SimpleAccessDeniedHandler;
+import com.imgarena.resourceserver.security.UsersAuthenticationProviderImpl;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -25,11 +28,6 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity(debug = true)
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = false)
 public class SecurityConfig {
-
-  @Bean
-  public SimpleAccessDeniedHandler accessDeniedHandler() {
-    return new SimpleAccessDeniedHandler();
-  }
 
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -70,7 +68,7 @@ public class SecurityConfig {
         http.getSharedObject(AuthenticationManagerBuilder.class);
     authenticationManagerBuilder.authenticationProvider(
         new UsersAuthenticationProviderImpl(roleService));
-    authenticationManagerBuilder.authenticationProvider(new AppsAuthenticationProviderImpl());
+    //authenticationManagerBuilder.authenticationProvider(new AppsAuthenticationProviderImpl());
     return authenticationManagerBuilder.build();
   }
 
@@ -104,3 +102,4 @@ public class SecurityConfig {
     }
 
   }
+}
