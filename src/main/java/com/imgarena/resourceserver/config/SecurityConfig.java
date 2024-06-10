@@ -1,7 +1,6 @@
 package com.imgarena.resourceserver.config;
 
 import com.imgarena.resourceserver.security.RoleService;
-import com.imgarena.resourceserver.security.SimpleAccessDeniedHandler;
 import com.imgarena.resourceserver.security.UsersAuthenticationProviderImpl;
 import java.util.Collection;
 import java.util.List;
