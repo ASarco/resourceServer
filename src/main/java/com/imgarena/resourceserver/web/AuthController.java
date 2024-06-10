@@ -3,8 +3,9 @@ package com.imgarena.resourceserver.web;
 import static com.imgarena.resourceserver.config.ApiConstants.API_ENDPOINT_PREFIX;
 import static com.imgarena.resourceserver.config.ApiConstants.ROLE_PREFIX;
 import static org.keycloak.representations.IDToken.EMAIL;
+import static org.keycloak.representations.IDToken.FAMILY_NAME;
+import static org.keycloak.representations.IDToken.GIVEN_NAME;
 
-import com.imgarena.resourceserver.model.Role;
 import com.imgarena.resourceserver.model.Role.RoleName;
 import com.imgarena.resourceserver.model.UserInfoDTO;
 import java.time.Instant;
@@ -54,8 +55,8 @@ public class AuthController {
     var jwt = (Jwt) auth.getPrincipal();
     return new UserInfoDTO(
         UUID.fromString(jwt.getId()),
-        auth.getName(),
-        auth.getName(),
+        jwt.getClaim(GIVEN_NAME),
+        jwt.getClaim(FAMILY_NAME),
         jwt.getClaim(EMAIL),
         roles,
         ZonedDateTime.ofInstant(Objects.requireNonNullElse(jwt.getExpiresAt(), Instant.EPOCH), ZoneId.systemDefault()));
