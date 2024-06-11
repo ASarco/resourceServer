@@ -12,7 +12,7 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -25,7 +25,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity(debug = true)
-@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = false)
+@EnableMethodSecurity(securedEnabled = true, prePostEnabled = false)
 public class SecurityConfig {
 
   @Bean
@@ -34,7 +34,8 @@ public class SecurityConfig {
         .sessionManagement(
             session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .csrf(AbstractHttpConfigurer::disable)
-        .securityMatchers(sm -> sm.requestMatchers("/**"))
+        //.securityMatchers(sm -> sm.requestMatchers("/**"))
+        .authorizeHttpRequests(ar -> ar.requestMatchers("/userInfo/**", "/error/**").permitAll())
         .authorizeHttpRequests(ar -> ar.anyRequest().authenticated())
         .oauth2ResourceServer(
             o2 ->
